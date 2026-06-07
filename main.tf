@@ -54,6 +54,10 @@ resource "random_password" "vm_admin" {
   override_special = "!@#$%^&*()-_=+[]{}"
 }
 
+# Password authentication is enabled deliberately for this lab. The VM has
+# no public IP and is destroyed in the same session, so the attack surface
+# is nil. For any real deployment, use admin_ssh_key with
+# disable_password_authentication = true.
 resource "azurerm_linux_virtual_machine" "lab" {
   name                            = "vm-lab"
   resource_group_name             = azurerm_resource_group.lab.name
@@ -73,6 +77,6 @@ resource "azurerm_linux_virtual_machine" "lab" {
     publisher = "Canonical"
     offer     = "ubuntu-24_04-lts"
     sku       = "server"
-    version   = "latest"
+    version   = "24.04.202606060"
   }
 }
