@@ -4,8 +4,8 @@ variable "project_name" {
   default     = "azure-terraform-lab"
 
   validation {
-    condition     = can(regex("^[a-z0-9-]{1,30}$", var.project_name))
-    error_message = "project_name must be 1-30 chars: lowercase alphanumeric and hyphens only (Azure resource naming compatibility)."
+    condition     = can(regex("^[a-z0-9]([a-z0-9-]{0,28}[a-z0-9])?$", var.project_name))
+    error_message = "project_name must be 1-30 chars: lowercase alphanumeric and hyphens, must start and end with alphanumeric (Azure resource naming compatibility)."
   }
 }
 

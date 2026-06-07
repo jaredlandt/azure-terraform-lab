@@ -30,7 +30,7 @@ azurerm_resource_group.lab (rg-azure-terraform-lab)
 
 ## Prerequisites
 
-- Terraform `~> 1.5`
+- Terraform `>= 1.5, < 2.0`
 - Azure CLI (`az`) — authenticated via `az login` to a subscription with **at least 2 vCPU quota** in the `Dsv6` family (or change `var.vm_size` to a family you do have quota for; see `az vm list-usage --location <region>`)
 - A `centralus` region default (or override `var.location`)
 
