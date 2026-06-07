@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5"
+  required_version = "~> 1.5"
 
   required_providers {
     azurerm = {
@@ -18,26 +18,26 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "lab" {
-  name     = "rg-azure-terraform-lab"
-  location = "centralus"
+  name     = "rg-${var.project_name}"
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "lab" {
-  name                = "vnet-azure-terraform-lab"
-  address_space       = ["10.0.0.0/16"]
+  name                = "vnet-${var.project_name}"
+  address_space       = var.vnet_address_space
   location            = azurerm_resource_group.lab.location
   resource_group_name = azurerm_resource_group.lab.name
 }
 
 resource "azurerm_subnet" "lab" {
-  name                 = "snet-lab"
+  name                 = "snet-${var.project_name}"
   resource_group_name  = azurerm_resource_group.lab.name
   virtual_network_name = azurerm_virtual_network.lab.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = var.subnet_address_prefix
 }
 
 resource "azurerm_network_interface" "lab" {
-  name                = "nic-lab"
+  name                = "nic-${var.project_name}"
   location            = azurerm_resource_group.lab.location
   resource_group_name = azurerm_resource_group.lab.name
 
@@ -51,7 +51,7 @@ resource "azurerm_network_interface" "lab" {
 resource "random_password" "vm_admin" {
   length           = 24
   special          = true
-  override_special = "!@#$%^&*()-_=+[]{}"
+  override_special = "!@#$%^&*()-_=+[]"
 }
 
 # Password authentication is enabled deliberately for this lab. The VM has
@@ -60,11 +60,11 @@ resource "random_password" "vm_admin" {
 # the VM, but the VNet is empty by construction. For any real deployment,
 # use admin_ssh_key with disable_password_authentication = true.
 resource "azurerm_linux_virtual_machine" "lab" {
-  name                            = "vm-lab"
+  name                            = "vm-${var.project_name}"
   resource_group_name             = azurerm_resource_group.lab.name
   location                        = azurerm_resource_group.lab.location
-  size                            = "Standard_D2s_v6"
-  admin_username                  = "azureuser"
+  size                            = var.vm_size
+  admin_username                  = var.admin_username
   admin_password                  = random_password.vm_admin.result
   disable_password_authentication = false
   network_interface_ids           = [azurerm_network_interface.lab.id]
@@ -78,6 +78,6 @@ resource "azurerm_linux_virtual_machine" "lab" {
     publisher = "Canonical"
     offer     = "ubuntu-24_04-lts"
     sku       = "server"
-    version   = "24.04.202606060"
+    version   = var.image_version
   }
 }
