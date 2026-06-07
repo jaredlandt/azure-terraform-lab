@@ -55,9 +55,10 @@ resource "random_password" "vm_admin" {
 }
 
 # Password authentication is enabled deliberately for this lab. The VM has
-# no public IP and is destroyed in the same session, so the attack surface
-# is nil. For any real deployment, use admin_ssh_key with
-# disable_password_authentication = true.
+# no public IP and is destroyed in the same session — no internet exposure,
+# no persistence. There is no NSG, so anything else in the VNet could reach
+# the VM, but the VNet is empty by construction. For any real deployment,
+# use admin_ssh_key with disable_password_authentication = true.
 resource "azurerm_linux_virtual_machine" "lab" {
   name                            = "vm-lab"
   resource_group_name             = azurerm_resource_group.lab.name
