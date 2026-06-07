@@ -67,7 +67,7 @@ All tunable values live in [`variables.tf`](variables.tf) with defaults:
 | `project_name` | `azure-terraform-lab` | Drives all resource names (`rg-<name>`, `vnet-<name>`, …) |
 | `location` | `centralus` | Azure region |
 | `vnet_address_space` | `["10.0.0.0/16"]` | VNet CIDR |
-| `subnet_address_prefix` | `["10.0.1.0/24"]` | Subnet CIDR |
+| `subnet_address_prefixes` | `["10.0.1.0/24"]` | Subnet CIDR |
 | `vm_size` | `Standard_D2s_v6` | SKU — **check `az vm list-usage`** before changing |
 | `admin_username` | `azureuser` | Linux VM admin |
 | `image_version` | `24.04.202606060` | Pinned Ubuntu 24.04 LTS server image |

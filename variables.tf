@@ -1,7 +1,12 @@
 variable "project_name" {
-  description = "Short identifier used to name all resources (rg-<name>, vnet-<name>, etc.)."
+  description = "Short identifier used to name all resources (rg-<name>, vnet-<name>, etc.). Lowercase alphanumeric + hyphens only, 1-30 chars to leave room for resource-type prefixes."
   type        = string
   default     = "azure-terraform-lab"
+
+  validation {
+    condition     = can(regex("^[a-z0-9-]{1,30}$", var.project_name))
+    error_message = "project_name must be 1-30 chars: lowercase alphanumeric and hyphens only (Azure resource naming compatibility)."
+  }
 }
 
 variable "location" {
@@ -16,7 +21,7 @@ variable "vnet_address_space" {
   default     = ["10.0.0.0/16"]
 }
 
-variable "subnet_address_prefix" {
+variable "subnet_address_prefixes" {
   description = "CIDR block(s) for the subnet. Must fit inside vnet_address_space."
   type        = list(string)
   default     = ["10.0.1.0/24"]

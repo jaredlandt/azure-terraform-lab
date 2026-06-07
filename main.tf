@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.5"
+  required_version = ">= 1.5, < 2.0"
 
   required_providers {
     azurerm = {
@@ -33,7 +33,7 @@ resource "azurerm_subnet" "lab" {
   name                 = "snet-${var.project_name}"
   resource_group_name  = azurerm_resource_group.lab.name
   virtual_network_name = azurerm_virtual_network.lab.name
-  address_prefixes     = var.subnet_address_prefix
+  address_prefixes     = var.subnet_address_prefixes
 }
 
 resource "azurerm_network_interface" "lab" {

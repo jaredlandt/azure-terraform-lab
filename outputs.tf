@@ -25,7 +25,7 @@ output "vm_private_ip" {
 
 output "vm_admin_username" {
   description = "Admin username for SSH (no public IP, so not directly reachable without a jumpbox)."
-  value       = var.admin_username
+  value       = azurerm_linux_virtual_machine.lab.admin_username
 }
 
 output "vm_admin_password" {
