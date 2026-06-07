@@ -1,0 +1,44 @@
+# sdlc-core: review marker is local per-machine state.
+.last-review
+
+# Per-machine Claude Code overrides
+.claude/settings.local.json
+
+# Common dev artifacts
+node_modules/
+dist/
+build/
+.next/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Terraform — state stores secrets in plaintext; never commit it.
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+# Secret-bearing variable files. Commit an example instead (e.g. terraform.tfvars.example).
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+# Override files are local-only by convention.
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+# .terraform.lock.hcl is intentionally NOT ignored — commit it to pin provider versions.

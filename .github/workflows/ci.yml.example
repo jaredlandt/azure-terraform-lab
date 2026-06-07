@@ -1,0 +1,46 @@
+# CI workflow — stack-agnostic skeleton.
+#
+# Rename this file to `ci.yml` to enable. Fill in the stack-specific
+# install / lint / test commands first — otherwise CI runs will fail
+# loudly (which is fine: the failure tells you to finish wiring this up).
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Replace with your stack's setup step. Examples:
+      #
+      #   - uses: actions/setup-node@v4
+      #     with: { node-version: '20' }
+      #
+      #   - uses: actions/setup-python@v5
+      #     with: { python-version: '3.12' }
+      #
+      #   - uses: actions/setup-go@v5
+      #     with: { go-version: '1.22' }
+
+      - name: Install dependencies
+        run: |
+          echo "[Replace: install command]"
+          exit 1
+
+      - name: Lint
+        run: |
+          echo "[Replace: lint command — or delete this step]"
+          exit 1
+
+      - name: Test
+        run: |
+          echo "[Replace: test command]"
+          exit 1
