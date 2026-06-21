@@ -24,6 +24,7 @@ Thumbs.db
 *.swp
 .idea/
 .vscode/
+*.code-workspace
 
 # Terraform — state stores secrets in plaintext; never commit it.
 .terraform/
