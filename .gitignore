@@ -1,4 +1,4 @@
-# sdlc-core: review marker is local per-machine state.
+# Review marker (push gate) is local per-machine state.
 .last-review
 
 # Per-machine Claude Code overrides

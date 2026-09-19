@@ -45,16 +45,13 @@ Don't leave the VM running. Pair every `apply` with a `destroy` in the same sess
 - This repo has no test suite. The integration test IS `terraform plan` (compares desired state to actual cloud state) and a successful `apply` + `destroy` round trip.
 - Always run `terraform fmt` and `terraform validate` before committing.
 
-## SDLC discipline (sdlc-core)
+## SDLC discipline
 
-This repo uses the `sdlc-core` plugin for lifecycle gating:
+Nothing here is repo-specific — the gates are user-level Claude Code config (`~/.claude/`):
 
-- **Secret scan + file protection** — block writes containing credentials or to sensitive paths.
-- **Type-check on edit** — advisory; surfaces errors, doesn't block.
-- **Review-freshness gate** — `git push` is blocked until `/review` has run on the current HEAD. Run `/review` to update `.last-review`.
+- **Review-freshness gate** — `git push` is blocked until `/review` has run on the current HEAD (`~/.claude/hooks/review-gate.sh`). Run `/review` to update `.last-review`.
+- **File protection** — `Edit(...)` deny rules in `~/.claude/settings.json` block writes to `.env` and `.env.{local,development,staging,production}`, `*.key`, `*.pem`, `~/.ssh`. Other `.env.*` names are not covered.
 - **Ship** — use `/ship` to stage, commit, push, and open a PR.
-
-To loosen or tighten any gate per-repo, edit `.claude/settings.json` → `enabledPlugins` (set the plugin entry to `false` to disable everything from it).
 
 ## Project-specific notes
 

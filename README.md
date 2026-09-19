@@ -83,7 +83,7 @@ Override any of them inline (`terraform apply -var location=eastus`), via a `ter
 ├── outputs.tf               Surfaced values (RG, VNet ID, VM name, private IP, sensitive password)
 ├── .terraform.lock.hcl      Pinned provider versions + SHA hashes — committed
 ├── .gitignore               Excludes *.tfstate, .terraform/, *.tfvars, etc.
-└── docs/                    ADR, runbook, architecture, requirements (sdlc-core scaffold)
+└── docs/                    ADR, runbook, architecture, requirements
 ```
 
 ## Security notes
