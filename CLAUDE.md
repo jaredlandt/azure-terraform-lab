@@ -47,11 +47,7 @@ Don't leave the VM running. Pair every `apply` with a `destroy` in the same sess
 
 ## SDLC discipline
 
-Nothing here is repo-specific — the gates are user-level Claude Code config (`~/.claude/`):
-
-- **Review-freshness gate** — `git push` is blocked until `/review` has run on the current HEAD (`~/.claude/hooks/review-gate.sh`). Run `/review` to update `.last-review`.
-- **File protection** — `Edit(...)` deny rules in `~/.claude/settings.json` block writes to `.env` and `.env.{local,development,staging,production}`, `*.key`, `*.pem`, `~/.ssh`. Other `.env.*` names are not covered.
-- **Ship** — use `/ship` to stage, commit, push, and open a PR.
+No repo-level gates. Push review (`/review` → `.last-review`), file-write protection, and commit-time secret scanning are user-level config, maintained in `~/Dev/dotfiles` — see its README. Nothing to configure per repo.
 
 ## Project-specific notes
 
